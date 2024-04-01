@@ -3,7 +3,7 @@
       <!-- Content Header (Page header) -->
       <div class="content-header">
           <div class="container-fluid">
-              <h1 class="m-0">Dashboard ADMIN</h1>
+              <h1 class="m-0">Dashboard USER</h1>
 
 
               <!-- isi konten -->
