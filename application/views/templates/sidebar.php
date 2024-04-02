@@ -14,7 +14,7 @@
                   <img src="<?= base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
               </div>
               <div class="info">
-                  <a href="#" class="d-block"><?= $this->session->userdata('email') ?></a>
+                  <h5 class="d-block"><?= $user['name'] ?></h5>
               </div>
           </div>
 
@@ -23,56 +23,39 @@
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                  <li class="nav-item menu-open">
-                      <a href="#" class="nav-link active">
-                          <i class="nav-icon fas fa-tachometer-alt"></i>
-                          <p>
-                              Dashboard
-                              <i class="right fas fa-angle-left"></i>
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Dashboard v1</p>
-                              </a>
-                          </li>
-                      </ul>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="<?= base_url('auth/logout') ?>" class="nav-link">
-                                  <i class="fas fa-sign-out-alt nav-icon"></i>
-                                  <p>Logout</p>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
 
-                  <li class="nav-header">EXAMPLES</li>
-                  <li class="nav-item">
-                      <a href="pages/calendar.html" class="nav-link">
-                          <i class="nav-icon fas fa-calendar-alt"></i>
-                          <p>
-                              Calendar
-                              <span class="badge badge-info right">2</span>
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="pages/gallery.html" class="nav-link">
-                          <i class="nav-icon far fa-image"></i>
-                          <p>
-                              Gallery
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="pages/kanban.html" class="nav-link">
-                          <i class="nav-icon fas fa-columns"></i>
-                          <p>
-                              Kanban Board
-                          </p>
+                  <!-- Query Menu -->
+                  <?php
+                    $role_id = $this->session->userdata('role_id');
+                    $queryMenu = "SELECT `user_menu`.`id`, `menu` FROM `user_menu` JOIN `user_access_menu` ON `user_menu`.`id` = `user_access_menu`.`menu_id` WHERE `user_access_menu`.`role_id` = $role_id ORDER BY `user_access_menu`.`menu_id` ASC";
+                    $menu = $this->db->query($queryMenu)->result_array();
+                    ?>
+
+                  <!-- Looping Menu -->
+                  <?php foreach ($menu as $m) : ?>
+
+                      <li class="nav-header"><?= $m['menu'] ?></li>
+
+                      <!-- Sub Menu -->
+                      <?php
+                        $menuId = $m['id'];
+                        $querySubMenu = "SELECT * FROM `user_sub_menu` JOIN `user_menu` ON `user_sub_menu`.`menu_id` = `user_menu`.`id` WHERE `user_sub_menu`.`menu_id` = $menuId AND `user_sub_menu`.`is_active` = 1";
+                        $subMenu = $this->db->query($querySubMenu)->result_array();
+                        ?>
+
+                      <?php foreach ($subMenu as $sm) : ?>
+                          <li class="nav-item">
+                              <a href="<?= base_url($sm['url']) ?>" class="nav-link">
+                                  <i class="<?= $sm['icon'] ?>"></i>
+                                  <p><?= $sm['title'] ?></p>
+                              </a>
+                          </li>
+                      <?php endforeach; ?>
+
+                  <?php endforeach; ?><li class="nav-item">
+                      <a href="<?= base_url('auth/logout') ?>" class="nav-link">
+                          <i class="fas fa-sign-out-alt nav-icon"></i>
+                          <p>Logout</p>
                       </a>
                   </li>
 
