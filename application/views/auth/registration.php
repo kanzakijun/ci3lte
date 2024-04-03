@@ -10,16 +10,16 @@
                 <?= form_open('auth/registration') ?>
                 <?= form_error('name', '<small class="text-danger pl-3">', '</small>') ?>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Full name" id="name" name="name" value="<?= set_value('name') ?>">
+                    <input type="text" class="form-control" placeholder="Nama Lengkap" id="name" name="name" value="<?= set_value('name') ?>">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
                         </div>
                     </div>
                 </div>
-                <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
+                <?= form_error('username', '<small class="text-danger pl-3">', '</small>') ?>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Email" id="email" name="email" value="<?= set_value('email') ?>">
+                    <input type="text" class="form-control" placeholder="Username" id="username" name="username" value="<?= set_value('username') ?>">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>

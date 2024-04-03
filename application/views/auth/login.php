@@ -9,9 +9,9 @@
                 <p class="login-box-msg">Sign in to start your session</p>
                 <?= $this->session->flashdata('message'); ?>
                 <?= form_open('auth')  ?>
-                <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
+                <?= form_error('username', '<small class="text-danger pl-3">', '</small>') ?>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Email" id="email" name="email" value="<?= set_value('email') ?>">
+                    <input type="text" class="form-control" placeholder="Username" id="username" name="username" value="<?= set_value('username') ?>">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
