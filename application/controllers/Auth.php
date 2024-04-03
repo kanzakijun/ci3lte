@@ -47,7 +47,7 @@ class Auth extends CI_Controller
                 $data = [
                     //'user_id' => $user['user_id'],
                     'user_username' => $user['user_username'],
-                    'user_fullname' => $user['user_fullname'],
+                    'user_nama_lengkap' => $user['user_nama_lengkap'],
                 ];
                 $this->session->set_userdata($data);
                 redirect('dashboard');
