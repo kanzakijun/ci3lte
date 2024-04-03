@@ -11,6 +11,10 @@ class Auth extends CI_Controller
 
     public function index()
     {
+        if($this->session->userdata('user_username')){
+            redirect('dashboard');
+        }
+
         // set rules nya
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -29,6 +33,7 @@ class Auth extends CI_Controller
 
     private function _login()
     {
+
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
@@ -40,12 +45,12 @@ class Auth extends CI_Controller
             // cek password
             if(password_verify($password, $user['user_password'])) {
                 $data = [
-                    'user_id' => $user['user_id'],
+                    //'user_id' => $user['user_id'],
                     'user_username' => $user['user_username'],
-                    'user_password' => $user['user_password']
+                    'user_fullname' => $user['user_fullname'],
                 ];
                 $this->session->set_userdata($data);
-                redirect('user');
+                redirect('dashboard');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password!</div>');
                 redirect('auth');
@@ -58,6 +63,10 @@ class Auth extends CI_Controller
 
     public function registration()
     {
+        if($this->session->userdata('user_username')){
+            redirect('dashboard');
+        }
+
         // set rulesnya
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[master_user.user_username]', [
@@ -90,8 +99,8 @@ class Auth extends CI_Controller
 
     public function logout()
     {
-        $this->session->unset_userdata('email');
-        $this->session->unset_userdata('role_id');
+        $this->session->unset_userdata('user_username');
+        $this->session->unset_userdata('user_fullname');
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">You have been logged out!</div>');
         redirect('auth');
     }
