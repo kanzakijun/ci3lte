@@ -55,20 +55,41 @@ class Barang extends CI_Controller {
                 $this->load->library('upload', $config);
 
                 if($this->upload->do_upload('foto')) {
-                    $old_foto = $data['master']['barang_foto_file'];
-                    if($old_foto != 'default.jpg') {
-                        unlink(FCPATH . 'assets/img/barang/' . $old_foto);
-                    }
                     $new_foto = $this->upload->data('file_name');
-                    $this->db->set('barang_foto_file', $new_foto);
+                    $this->db->insert('master_barang', [
+                        'barang_nama' => $nama,
+                        'barang_harga' => $harga,
+                        'barang_keterangan' => $ket,
+                    ]);
+                    $this->db->insert('master_barang_foto', [
+                        'barang_id' => $this->db->insert_id(),
+                        'barang_foto_file' => $new_foto
+                    ]);
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New product added!</div>');
+                    redirect('barang');
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
                     redirect('barang/add');
                 }
             }
+        }
+    }
 
+    public function delete($id)
+    {
+        $this->db->where('barang_id', $id);
+        $this->db->delete('master_barang');
+        $this->db->where('barang_id', $id);
+        $this->db->delete('master_barang_foto');
+
+        $foto = $this->db->get_where('master_barang_foto', ['barang_id' => $id])->row_array();
+
+        if($foto) {
+            unlink(FCPATH . 'assets/img/barang/' . $foto['barang_foto_file']);
         }
 
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Product has been deleted!</div>');
+        redirect('barang');
     }
 }
 

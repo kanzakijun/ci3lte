@@ -51,8 +51,7 @@
                     <td><img src="<?= base_url('assets/img/barang/') . $m['barang_foto_file'] ?>" width="100"></td>
                     <td>
                       <a href="<?= base_url('barang/edit/') . $m['barang_id'] ?>" class="btn btn-success btn-sm">Edit</a>
-                      <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteBarangModal
-                      <?= $m['barang_id'] ?>">Delete</a>
+                      <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteBarangModal<?= $m['barang_id'] ?>">Delete</a>
                     </td>
                   </tr>
                   <?php $i++; ?>
@@ -93,8 +92,7 @@
 <!-- Modal Delete -->
 <?
 foreach ($master as $m) : ?>
-    <div class="modal fade" id="deleteBarangModal
-    <?= $m['bank_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="deleteBarangModal
+    <div class="modal fade" id="deleteBarangModal<?= $m['barang_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="deleteBarangModal
     Label" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -105,7 +103,7 @@ foreach ($master as $m) : ?>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="<?= base_url('barang/delete/' . $m['barang_id']) ?>" method="post">
+                <form action="<?= base_url('barang/delete/' . $m['barang_id']) ?>" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <p>Are you sure want to delete "<?= $m['barang_nama'] ?>"?</p>
                     </div>
