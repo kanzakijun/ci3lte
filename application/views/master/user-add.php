@@ -31,15 +31,20 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputFullname1">Nama Lengkap</label>
-                    <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Nama Lengkap">
+                    <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Nama Lengkap" value="<?= set_value('fullname'); ?>">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputUsername1">Username</label>
-                    <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="<?= set_value('username'); ?>">
+                    <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" name="password1" class="form-control" id="password1" placeholder="Password">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword2">Retype Password</label>
+                    <input type="password" name="password2" class="form-control" id="password2" placeholder="Retype Password">
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -102,12 +107,16 @@ $(function () {
         required: true,
         fullname: true,
       },
-      password: {
+      password1: {
         required: true,
         minlength: 5
+      },password2: {
+        required: true,
+        minlength: 5,
+        equalTo: "#password1"
       },
       username: {
-        required: true
+        required: true,
       },
     },
     messages: {
@@ -115,9 +124,13 @@ $(function () {
         required: "Please enter a fullname",
         fullname: "Please enter a valid fullname"
       },
-      password: {
+      password1: {
         required: "Please provide a password",
         minlength: "Your password must be at least 5 characters long"
+      },password2: {
+        required: "Please provide a password",
+        minlength: "Your password must be at least 5 characters long",
+        equalTo: "Please enter the same password as before"
       },
       username: {
         required: "Please provide a username"

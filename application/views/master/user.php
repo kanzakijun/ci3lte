@@ -48,7 +48,7 @@
                     <td><?= $m['user_nama_lengkap']; ?></td>
                     <td>
                       <a href="<?= base_url('user/edit/') . $m['user_id'] ?>" class="btn btn-success btn-sm">Edit</a>
-                      <a href="<?= base_url('user/delete/') . $m['user_id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                      <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal<?= $m['user_id'] ?>">Delete</a>
                     </td>
                   </tr>
                   <?php $i++; ?>
@@ -85,6 +85,32 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+<!-- Modal Delete -->
+<?
+foreach ($master as $m) : ?>
+    <div class="modal fade" id="deleteUserModal<?= $m['user_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('user/delete/' . $m['user_id']) ?>" method="post">
+                    <div class="modal-body">
+                        <p>Are you sure want to delete "<?= $m['user_username'] ?>"?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<? endforeach; ?>
 
 <!-- jQuery -->
 <script src="<?= base_url('assets/') ?>plugins/jquery/jquery.min.js"></script>
