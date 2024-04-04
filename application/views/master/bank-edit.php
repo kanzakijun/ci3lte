@@ -6,7 +6,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
           <?php foreach ($master as $m) : ?>
-            <h1><?= $title ?> - <?= $m['user_username']; ?></h1>
+            <h1><?= $title ?> - <?= $m['bank_atas_nama']; ?></h1>
           <?php endforeach; ?>
           </div>
           <div class="col-sm-6">
@@ -29,36 +29,27 @@
             <div class="card card-primary">
               <!-- /.card-header -->
               <!-- form start -->
-
-              <?php foreach ($master as $m) : ?>
-                
-              <form id="quickForm" action="<?= base_url('user/edit/' . $m['user_id']); ?>" method="post">
-              <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
+              <form id="quickForm" action="<?= base_url('bank/edit/'.$m['bank_id']) ?>" method="post">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputFullname1">Nama Lengkap</label>
-                    <input type="text" name="fullname" class="form-control" id="fullname" value="<?= set_value('fullname', $m['user_nama_lengkap']); ?>">
+                    <label for="exampleInputBanknama1">Nama Bank</label>
+                    <input type="text" name="bank_nama" class="form-control" id="bank_nama" placeholder="Nama Bank" value="<?= set_value('bank_nama', $m['bank_nama']); ?>">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputUsername1">Username</label>
-                    <input type="text" name="username" class="form-control" id="username" value="<?= set_value('username', $m['user_username']); ?>">
+                    <label for="exampleInputUsername1">Nomor Rekening</label>
+                    <input type="text" name="norek" class="form-control" id="norek" placeholder="Nomor Rekening" value="<?= set_value('norek', $m['bank_rekening']); ?>">
+                    <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" name="password1" class="form-control" id="password1" placeholder="Password">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword2">Retype Password</label>
-                    <input type="password" name="password2" class="form-control" id="password2" placeholder="Retype Password">
+                    <label for="exampleInputPassword1">Atas Nama</label>
+                    <input type="text" name="an" class="form-control" id="an" placeholder="Atas Nama" value="<?= set_value('an', $m['bank_atas_nama']); ?>">
+                    <?= form_error('an', '<small class="text-danger pl-3">', '</small>'); ?>
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Update</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-
-                <?php endforeach; ?>
-                
               </form>
             </div>
             <!-- /.card -->
@@ -111,38 +102,28 @@ $(function () {
   });
   $('#quickForm').validate({
     rules: {
-      fullname: {
+      bank_nama: {
         required: true,
-        fullname: true,
+        bank_nama: true,
       },
-      password1: {
+      norek: {
         required: true,
-        minlength: 5
       },
-      password2: {
+      an: {
         required: true,
-        minlength: 5
-      },
-      username: {
-        required: true
       },
     },
     messages: {
-      fullname: {
-        required: "Please enter a fullname",
-        fullname: "Please enter a valid fullname"
+      bank_nama: {
+        required: "Please enter a Bank name",
+        bank_nama: "Please enter a valid Bank name"
       },
-      password1: {
-        required: "Please provide a password",
-        minlength: "Your password must be at least 5 characters long"
+      norek: {
+        required: "Please provide a nomor rekening"
       },
-      password2: {
-        required: "Please provide a password",
-        minlength: "Your password must be at least 5 characters long"
+      an: {
+        required: "Please provide a atas nama",
       },
-      username: {
-        required: "Please provide a username"
-      }
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {

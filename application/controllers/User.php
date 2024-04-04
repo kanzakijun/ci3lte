@@ -52,7 +52,7 @@ class User extends CI_Controller {
             $data = [
                 'user_username' => $username,
                 'user_password' => password_hash($password, PASSWORD_DEFAULT),
-                'user_nama_lurator' => $fullname              
+                'user_nama_lengkap' => $fullname              
                 ];
             $cek_user = $this->db->get_where('master_user', ['user_username' => $username])->row_array();
             if($cek_user){
@@ -60,7 +60,7 @@ class User extends CI_Controller {
                 redirect('user/add');
             } else {
                 $this->db->insert('master_user', $data);
-                $This->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User added!</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User added!</div>');
                 redirect('user');
             }
         }
@@ -73,9 +73,7 @@ class User extends CI_Controller {
         $data['username'] = $this->session->userdata('user_username');
         $data['master'] = $this->db->get_where('master_user', ['user_id' => $id])->result_array();
 
-        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[master_user.user_username]', [
-            'is_unique' => 'This username has already registered!'
-            ]);
+        
         $this->form_validation->set_rules('fullname', 'Fullname', 'required|trim');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[6]|matches[password2]', [
             'matches' => 'Password dont match!',

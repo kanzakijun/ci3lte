@@ -80,9 +80,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="<?= base_url('bank') ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation + Sidebar</p>
+                  <p>Master Bank</p>
                 </a>
               </li>
               <li class="nav-item">
