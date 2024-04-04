@@ -10,7 +10,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active"><?= $title ?></li>
             </ol>
           </div>
         </div>
@@ -24,9 +24,10 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="" class="btn btn-primary">Tambah User</a>
+                <a href="<?= base_url('user/add') ?>" class="btn btn-primary">Tambah User</a>
               </div>
               <!-- /.card-header -->
+              <?= $this->session->flashdata('message'); ?>
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
